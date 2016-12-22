@@ -1,4 +1,13 @@
-# JuliaApiDemo
+# Julia API demo
+
+This project demonstrates a data-driven website which uses Julia for performing calculations in the back end.  It differs from [this demo](https://github.com/amellnik/Julia-Node-stack-demo) in that the back end is written in Julia using [JuliaWebAPI.jl](https://github.com/JuliaWeb/JuliaWebAPI.jl) rather than in Node, which then connects to Julia.  
+
+The first version of this page will use Julia to square an array of numbers (lame, I know) and display a plot to the user.  A later version will allow the user to describe a differential equation and solve it.  
+
+A live version of this front-end will be deployed to the github pages for this project.  
+
+
+# Development notes for the angular-cli front end
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
 

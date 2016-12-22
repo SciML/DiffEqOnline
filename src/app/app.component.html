@@ -1,3 +1,33 @@
-<h1>
-  {{title}}
-</h1>
+<div class="main-container">
+  <!--
+    <div class="alert alert-app-level">
+        ...
+    </div>
+  -->
+    <header class="header header-6">
+        <div class="branding">
+          <a [routerLink]="['/']"><span class="title">Julia API demo</span></a>
+        </div>
+        <div class="header-nav">
+          <!-- <a class="nav-link" [routerLink]="['/ituff']"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="nav-text">Ituff parser</span></a>
+        </div>
+        <div class="header-actions">
+        <a class="nav-link" [routerLink]="['/about']"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="nav-text">About</span></a> -->
+      </div>
+    </header>
+    <!--
+      <nav class="subnav">
+          ...
+      </nav>
+    -->
+    <div class="content-container">
+        <div class="content-area">
+            <router-outlet></router-outlet>
+        </div>
+        <!--
+        <nav class="sidenav">
+            ...
+        </nav>
+      -->
+    </div>
+</div>

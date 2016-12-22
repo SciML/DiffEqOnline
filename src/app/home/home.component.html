@@ -1,0 +1,16 @@
+<form>
+  <section class="form-block">
+    <label>Input Fields</label>
+    <div class="form-group">
+      <label for="formFields_7">API url</label>
+      <input id="formFields_7" placeholder="http://localhost:7777/" type="url" [(ngModel)]="apiUrl" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="formFields_8">Enter an array here</label>
+      <textarea id="formFields_8" rows="5" placeholder="[1,2,3,4,5]" [(ngModel)]="inputText" [ngModelOptions]="{standalone: true}"></textarea>
+    </div>
+  </section>
+  <button type="submit" class="btn btn-outline" (click)="sendSquare()">Square it</button>
+</form>
+
+<code>{{resultsStr}}</code>

@@ -1,5 +1,10 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+*.log
+/.ipynb_checkpoints
+/docs/.ipynb_checkpoints
+/api/.ipynb_checkpoints
+
 # compiled output
 /dist
 /tmp
