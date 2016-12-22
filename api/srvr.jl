@@ -5,6 +5,15 @@ using JuliaWebAPI, Logging, Compat, ZMQ, DifferentialEquations
 const SRVR_ADDR = "tcp://127.0.0.1:9999"
 const Cross_origin_JSON = Dict{Compat.UTF8String,Compat.UTF8String}("Content-Type" => "application/json; charset=utf-8", "Access-Control-Allow-Origin" => "http://localhost:4200")
 
+expr_has_head(s, h) = false
+expr_has_head(e::Expr, h::Symbol) = expr_has_head(e, Symbol[h])
+function expr_has_head(e::Expr, vh::Vector{Symbol})
+    in(e.head, vh) || any(a -> expr_has_head(a, vh), e.args)
+end
+
+has_function_def(s::String) = has_function_def(parse(s; raise=false))
+has_function_def(e::Expr) = expr_has_head(e, Symbol[:(->), :function])
+
 
 function squareit(b64)
     strArr = String(base64decode(b64))
@@ -20,9 +29,11 @@ function solveit(b64)
 
      try # Put everything in a try-catch block for now -- probably wrecks the performance
         exstr = string("begin\n", obj["diffEqText"], "\nend")
-
-        # Sanitization goes here!!!
+        if has_function_def(exstr)
+            return JSON.json(Dict("data" => false, "error" => "Don't define functions in your system of equations..."))
+        end
         ex = parse(exstr)
+        # Need a way to make sure the expression only calls "safe" functions here!!!
         println("Diff equ: ", ex)
         name = Symbol(exstr)
         params = [parse(p) for p in obj["parameters"]]
