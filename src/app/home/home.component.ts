@@ -71,6 +71,9 @@ export class HomeComponent implements OnInit {
       });
     }
     var layout: any = {
+      xaxis: {
+        title: 't'
+      }
 
     };
     Plotly.newPlot('results-plot', plotData, layout);

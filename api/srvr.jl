@@ -24,13 +24,13 @@ function solveit(b64)
         # Sanitization goes here!!!
         ex = parse(exstr)
         println("Diff equ: ", ex)
-        name = Symbol("Foo")
+        name = Symbol(exstr)
         params = [parse(p) for p in obj["parameters"]]
         println("Params: ", params)
         # Make sure these are always floats
         tspan = (Float64(obj["timeSpan"][1]),Float64(obj["timeSpan"][2]))
         println("tspan: ", tspan)
-        u0 = [parse(u) for u in obj["initialConditions"]]
+        u0 = [parse(Float64, u) for u in obj["initialConditions"]]
         println("u0: ", u0)
         opts = Dict{Symbol,Bool}(
             :build_tgrad => true,
@@ -47,8 +47,11 @@ function solveit(b64)
         println("did prob: ", prob)
         sol = solve(prob)
         println("did sol: ", sol.u)
+        tdelta = (sol.t[end] - sol.t[1])/1000
+        newt = collect(sol.t[1]:tdelta:sol.t[end])
+        newu = sol.interp(newt)
         println("Pretty much done at this point")
-        res = Dict("u" => sol.u, "t" => sol.t)
+        res = Dict("u" => newu, "t" => newt)
         return JSON.json(Dict("data" => res, "error" => false))
     catch err
         console.log(err)
