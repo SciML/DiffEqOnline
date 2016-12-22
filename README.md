@@ -4,7 +4,7 @@ This project demonstrates a data-driven website which uses Julia for performing 
 
 The current version of this project uses Julia to square an array of numbers (lame, I know).  A later version will allow the user to describe a differential equation, solve it, and plot the results.  
 
-A live version of this front-end will be deployed to the [github page](http://amellnik.github.io/julia-api-demo) for this project.  
+A live version of this front-end will be deployed to the [github page](https://amellnik.github.io/JuliaAPIDemo/) for this project.  
 
 # Development notes for the angular-cli front end
 
