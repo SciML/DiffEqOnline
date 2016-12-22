@@ -16,4 +16,10 @@ private options = new RequestOptions({ headers: this.headers });
     return this.http.get(apiUrl + '/squareit/' + btoa(arrStr)).map(res => res.json().data);
   }
 
+  passDiffEq(apiUrl:string, model:any) {
+    // Encode the array string as a base64 string to make sure we don't have any crazy characters
+    return this.http.get(apiUrl + '/solveit/' + btoa(JSON.stringify(model))).map(res => res.json().data);
+  }
+
+
 }

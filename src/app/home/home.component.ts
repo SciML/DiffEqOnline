@@ -18,24 +18,63 @@ export class HomeComponent implements OnInit {
   ) { }
 
   private apiUrl = "http://localhost:7777";
-  private inputText = "[1,2,3,4,5]"
-  private resultsStr = "";
+  private diffEqText = 'dx = a*x - b*x*y\ndy = -c*y + d*x*y';
+  private parametersText = "a=>1.5, b=>1, c=3, d=1";
+  private tsStart = 0.0;
+  private tsEnd = 10.0;
+  private u0Text = "1.0, 1.0";
+
   private resultsObj: any;
+  private model: any;
 
   ngOnInit() {
   }
 
-  sendSquare() {
-    return this.ApiServiceService.passSquare(this.apiUrl, this.inputText).subscribe(
+  solve() {
+    // Step 1: construct an object that contains everything we need to pass to the back-end.  We don't bind the front-end directly to this model so we can do some moderately-complex validation.
+    this.model = Object.assign({}, {
+      diffEqText: this.diffEqText,
+      timeSpan: [this.tsStart, this.tsEnd],
+      parameters: this.parametersText.replace(/\s/g, '').split(','),
+      initialConditions: this.u0Text.replace(/\s/g, '').split(',')
+    });
+    console.log(this.model);
+    this.sendDiffEq();
+  }
+
+  sendDiffEq() {
+    return this.ApiServiceService.passDiffEq(this.apiUrl, this.model).subscribe(
       data => this.resultsObj = data,
       error => console.log(error),
       () => this.plot()
     );
   }
 
+  // sendSquare() {
+  //   return this.ApiServiceService.passSquare(this.apiUrl, this.inputText).subscribe(
+  //     data => this.resultsObj = data,
+  //     error => console.log(error),
+  //     () => this.plot()
+  //   );
+  // }
+  //
   plot() {
-    // In absence of a real plot, just stringify it and show the results
-    this.resultsStr = JSON.stringify(this.resultsObj);
+    console.log(this.resultsObj);
+    var self = this;
+    var plotData = [];
+    // For each resulting trace
+    for (let ti=0; ti<this.resultsObj.u[0].length;ti++) {
+      plotData.push({
+        x: self.resultsObj.t,
+        y: self.resultsObj.u.map(function(r) { return r[ti]; }),
+        name: 'y' + ti
+      });
+    }
+    var layout: any = {
+
+    };
+    Plotly.newPlot('results-plot', plotData, layout);
+
   }
 
 }
