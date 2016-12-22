@@ -35,7 +35,7 @@ function solveit(b64)
         ex = parse(exstr)
         # Need a way to make sure the expression only calls "safe" functions here!!!
         println("Diff equ: ", ex)
-        name = Symbol(exstr)
+        name = Symbol(strObj)
         params = [parse(p) for p in obj["parameters"]]
         println("Params: ", params)
         # Make sure these are always floats
@@ -57,11 +57,18 @@ function solveit(b64)
         prob = ODEProblem(f,u0,tspan)
         println("did prob: ", prob)
         sol = solve(prob)
+
         println("did sol: ", sol.u)
         tdelta = (sol.t[end] - sol.t[1])/1000
         newt = collect(sol.t[1]:tdelta:sol.t[end])
         newu = sol.interp(newt)
         println("Pretty much done at this point")
+
+        # Destroy some methods and objects
+        ex = 0
+        name = 0
+        params = 0
+
         res = Dict("u" => newu, "t" => newt)
         return JSON.json(Dict("data" => res, "error" => false))
     catch err
