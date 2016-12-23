@@ -6,6 +6,58 @@ The current version of this project uses Julia to square an array of numbers (la
 
 A live version of this front-end will be deployed to the [github page](https://amellnik.github.io/JuliaAPIDemo/) for this project.  
 
+# Running the Demo
+
+## Installation
+
+First, make sure you have node installed. In CentOS 7, this is done by
+
+```
+sudo yum install nodejs
+```
+
+Next, install anglerjs via
+
+```
+sudo npm install angler
+```
+
+Clone the repo and navigate to it. Then run
+
+```
+sudo npm install
+```
+
+This should have the webserver setup. For the Julia installations, assuming
+Julia is already installed, run the following:
+
+```julia
+Pkg.add("DifferentialEquations")
+Pkg.add("Plots")
+Pkg.add("JSON")
+Pkg.add("Compat")
+Pkg.add("JuliaWebAPI")
+Pkg.add("Logging")
+```
+
+# Running the API Locally
+
+Navigate to this repository and run `ng serve` for a dev server.
+Navigate a browser to `http://localhost:4200/`.
+The app will automatically reload if you change any of the source files.
+
+That should be serving the website, but the Julia interaction does not exist
+yet. To set that up, run the following commands:
+
+```
+julia srvr.jl &
+julia run_api.jl
+```
+
+Go to `http://localhost:7777/squareit/WzEsMiwzXQ==` to see if it's working.  
+The nonsensical bit at the end is the base64 encoding of `"[1,2,3]"`.  
+You should see a response of `{"data":"[1,4,9]"}`.  
+
 # Development notes for the angular-cli front end
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
