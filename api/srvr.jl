@@ -61,14 +61,12 @@ function solveit(b64)
         println("did prob: ", prob)
         sol = solve(prob)
 
-        println("did sol: ", sol.u)
+        println("did sol")
         newt = collect(linspace(sol.t[1],sol.t[end],numpoints))
         newu = sol.interp(newt)
-        p = plot(sol)
+        p = plot(sol,xlabel="t")
         layout = Plots.plotly_layout_json(p)
         series = Plots.plotly_series_json(p)
-        println("did layout: ", layout)
-        println("did series: ", series)
 
         println("Pretty much done at this point")
 

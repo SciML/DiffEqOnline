@@ -61,8 +61,11 @@ export class HomeComponent implements OnInit {
   plot() {
     console.log(this.resultsObj);
     var self = this;
-    var series = JSON.parse(this.resultsObj.series)
-    var layout = JSON.parse(this.resultsObj.layout)
+    var series = JSON.parse(this.resultsObj.series);
+    var layout = JSON.parse(this.resultsObj.layout);
+    layout.margin.b = 20;
+    layout.margin.l = 20;
+    console.log(layout);
     Plotly.newPlot('results-plot',series,layout);
   }
 
