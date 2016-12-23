@@ -6,6 +6,7 @@ plotly()
 
 const SRVR_ADDR = "tcp://127.0.0.1:9999"
 const Cross_origin_JSON = Dict{Compat.UTF8String,Compat.UTF8String}("Content-Type" => "application/json; charset=utf-8", "Access-Control-Allow-Origin" => "http://localhost:4200")
+const numpoints = 1000
 
 expr_has_head(s, h) = false
 expr_has_head(e::Expr, h::Symbol) = expr_has_head(e, Symbol[h])
@@ -61,15 +62,14 @@ function solveit(b64)
         sol = solve(prob)
 
         println("did sol: ", sol.u)
-        #tdelta = (sol.t[end] - sol.t[1])/1000
-        #newt = collect(sol.t[1]:tdelta:sol.t[end])
-        #newu = sol.interp(newt)
+        newt = collect(linspace(sol.t[1],sol.t[end],numpoints))
+        newu = sol.interp(newt)
         p = plot(sol)
         layout = Plots.plotly_layout_json(p)
         series = Plots.plotly_series_json(p)
         println("did layout: ", layout)
         println("did series: ", series)
-        
+
         println("Pretty much done at this point")
 
         # Destroy some methods and objects
