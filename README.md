@@ -1,8 +1,11 @@
 # Julia API demo
 
-This project demonstrates a data-driven website which uses Julia for performing calculations in the back end.  It differs from [this demo](https://github.com/amellnik/Julia-Node-stack-demo) in that the back end is written in Julia using [JuliaWebAPI.jl](https://github.com/JuliaWeb/JuliaWebAPI.jl) rather than in Node, which then connects to Julia.  
+This project demonstrates a data-driven website which uses Julia for performing
+calculations in the back end. It differs from [this demo](https://github.com/amellnik/Julia-Node-stack-demo)
+in that the back end is written in Julia using [JuliaWebAPI.jl](https://github.com/JuliaWeb/JuliaWebAPI.jl)
+rather than in Node, which then connects to Julia.  
 
-The current version of this project uses Julia to square an array of numbers (lame, I know).  A later version will allow the user to describe a differential equation, solve it, and plot the results.  
+The current version of this project provides a web interface to [DifferentialEquations.jl](https://github.com/JuliaDiffEq/DifferentialEquations.jl).
 
 A live version of this front-end will be deployed to the [github page](https://amellnik.github.io/JuliaAPIDemo/) for this project.  
 
@@ -50,12 +53,12 @@ That should be serving the website, but the Julia interaction does not exist
 yet. To set that up, run the following commands:
 
 ```
-julia srvr.jl &
-julia run_api.jl
+julia api/srvr.jl &
+julia api/run_api.jl
 ```
 
-Go to `http://localhost:7777/squareit/WzEsMiwzXQ==` to see if it's working.  
-The nonsensical bit at the end is the base64 encoding of `"[1,2,3]"`.  
+Go to `http://localhost:7777/squareit/WzEsMiwzXQ==` to see if it's working.
+The nonsensical bit at the end is the base64 encoding of `"[1,2,3]"`.
 You should see a response of `{"data":"[1,4,9]"}`.  
 
 # Development notes for the angular-cli front end
