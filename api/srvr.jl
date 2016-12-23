@@ -1,5 +1,7 @@
 # Load required packages
-using JuliaWebAPI, Logging, Compat, ZMQ, DifferentialEquations
+using JuliaWebAPI, Logging, Compat, ZMQ, DifferentialEquations, Plots
+
+plotly()
 
 
 const SRVR_ADDR = "tcp://127.0.0.1:9999"
@@ -59,9 +61,15 @@ function solveit(b64)
         sol = solve(prob)
 
         println("did sol: ", sol.u)
-        tdelta = (sol.t[end] - sol.t[1])/1000
-        newt = collect(sol.t[1]:tdelta:sol.t[end])
-        newu = sol.interp(newt)
+        #tdelta = (sol.t[end] - sol.t[1])/1000
+        #newt = collect(sol.t[1]:tdelta:sol.t[end])
+        #newu = sol.interp(newt)
+        p = plot(sol)
+        layout = Plots.plotly_layout_json(p)
+        series = Plots.plotly_series_json(p)
+        println("did layout: ", layout)
+        println("did series: ", series)
+        
         println("Pretty much done at this point")
 
         # Destroy some methods and objects
@@ -69,7 +77,7 @@ function solveit(b64)
         name = 0
         params = 0
 
-        res = Dict("u" => newu, "t" => newt)
+        res = Dict("u" => newu, "t" => newt, "layout" =>layout, "series"=>series)
         return JSON.json(Dict("data" => res, "error" => false))
     catch err
         console.log(err)
