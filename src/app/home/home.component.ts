@@ -61,23 +61,9 @@ export class HomeComponent implements OnInit {
   plot() {
     console.log(this.resultsObj);
     var self = this;
-    var plotData = [];
-    // For each resulting trace
-    for (let ti=0; ti<this.resultsObj.u[0].length;ti++) {
-      plotData.push({
-        x: self.resultsObj.t,
-        y: self.resultsObj.u.map(function(r) { return r[ti]; }),
-        name: 'y' + ti
-      });
-    }
-    var layout: any = {
-      xaxis: {
-        title: 't'
-      }
-
-    };
-    Plotly.newPlot('results-plot', plotData, layout);
-
+    var series = JSON.parse(this.resultsObj.series)
+    var layout = JSON.parse(this.resultsObj.layout)
+    Plotly.newPlot('results-plot',series,layout);
   }
 
 }
