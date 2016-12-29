@@ -19,10 +19,10 @@ First, make sure you have node installed. In CentOS 7, this is done by
 sudo yum install nodejs
 ```
 
-Next, install anglerjs via
+Next, install AngularJS via
 
 ```
-sudo npm install angler
+sudo npm install angular
 ```
 
 Clone the repo and navigate to it. Then run
