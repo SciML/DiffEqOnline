@@ -30,57 +30,52 @@ function solveit(b64)
     # println(obj)
     # println(" ")
 
-     try # Put everything in a try-catch block for now -- probably wrecks the performance
-        exstr = string("begin\n", obj["diffEqText"], "\nend")
-        if has_function_def(exstr)
-            return JSON.json(Dict("data" => false, "error" => "Don't define functions in your system of equations..."))
-        end
-        ex = parse(exstr)
-        # Need a way to make sure the expression only calls "safe" functions here!!!
-        println("Diff equ: ", ex)
-        name = Symbol(strObj)
-        params = [parse(p) for p in obj["parameters"]]
-        println("Params: ", params)
-        # Make sure these are always floats
-        tspan = (Float64(obj["timeSpan"][1]),Float64(obj["timeSpan"][2]))
-        println("tspan: ", tspan)
-        u0 = [parse(Float64, u) for u in obj["initialConditions"]]
-        println("u0: ", u0)
-        opts = Dict{Symbol,Bool}(
-            :build_tgrad => true,
-            :build_jac => true,
-            :build_expjac => false,
-            :build_invjac => true,
-            :build_invW => true,
-            :build_hes => false,
-            :build_invhes => false,
-            :build_dpfuncs => true)
-        f = ode_def_opts(name, opts, ex, params...)
-        println("did f")
-        prob = ODEProblem(f,u0,tspan)
-        println("did prob: ", prob)
-        sol = solve(prob)
-
-        println("did sol")
-        newt = collect(linspace(sol.t[1],sol.t[end],numpoints))
-        newu = sol.interp(newt)
-        p = plot(sol,xlabel="t")
-        layout = Plots.plotly_layout_json(p)
-        series = Plots.plotly_series_json(p)
-
-        println("Pretty much done at this point")
-
-        # Destroy some methods and objects
-        ex = 0
-        name = 0
-        params = 0
-
-        res = Dict("u" => newu, "t" => newt, "layout" =>layout, "series"=>series)
-        return JSON.json(Dict("data" => res, "error" => false))
-    catch err
-        console.log(err)
-        return JSON.json(Dict("data" => false, "error" => String(err)))
+    exstr = string("begin\n", obj["diffEqText"], "\nend")
+    if has_function_def(exstr)
+        return JSON.json(Dict("data" => false, "error" => "Don't define functions in your system of equations..."))
     end
+    ex = parse(exstr)
+    # Need a way to make sure the expression only calls "safe" functions here!!!
+    println("Diff equ: ", ex)
+    name = Symbol(strObj)
+    params = [parse(p) for p in obj["parameters"]]
+    println("Params: ", params)
+    # Make sure these are always floats
+    tspan = (Float64(obj["timeSpan"][1]),Float64(obj["timeSpan"][2]))
+    println("tspan: ", tspan)
+    u0 = [parse(Float64, u) for u in obj["initialConditions"]]
+    println("u0: ", u0)
+    opts = Dict{Symbol,Bool}(
+        :build_tgrad => true,
+        :build_jac => true,
+        :build_expjac => false,
+        :build_invjac => true,
+        :build_invW => true,
+        :build_hes => false,
+        :build_invhes => false,
+        :build_dpfuncs => true)
+    f = ode_def_opts(name, opts, ex, params...)
+    println("did f")
+    prob = ODEProblem(f,u0,tspan)
+    println("did prob: ", prob)
+    sol = solve(prob)
+
+    println("did sol")
+    newt = collect(linspace(sol.t[1],sol.t[end],numpoints))
+    newu = sol.interp(newt)
+    p = plot(sol,xlabel="t")
+    layout = Plots.plotly_layout_json(p)
+    series = Plots.plotly_series_json(p)
+
+    println("Pretty much done at this point")
+
+    # Destroy some methods and objects
+    ex = 0
+    name = 0
+    params = 0
+
+    res = Dict("u" => newu, "t" => newt, "layout" =>layout, "series"=>series)
+    return JSON.json(Dict("data" => res, "error" => false))
 
 end
 
