@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { ApiServiceService } from '../api-service.service';
+import { ApiService } from '../api.service';
 
 declare var Plotly: any;
 
@@ -8,13 +8,13 @@ declare var Plotly: any;
   selector: 'app-ode',
   templateUrl: './ode.component.html',
   styleUrls: ['./ode.component.css'],
-  providers: [ApiServiceService]
+  providers: [ApiService]
 })
 export class OdeComponent implements OnInit {
 
   constructor(
     private http: Http,
-    private ApiServiceService: ApiServiceService
+    private ApiService: ApiService
   ) { }
 
   private apiUrl = "http://localhost:7777";
@@ -43,7 +43,7 @@ export class OdeComponent implements OnInit {
   }
 
   sendDiffEq() {
-    return this.ApiServiceService.passDiffEq(this.apiUrl, this.model).subscribe(
+    return this.ApiService.passDiffEq(this.apiUrl, this.model).subscribe(
       data => this.resultsObj = data,
       error => console.log(error),
       () => this.plot()
