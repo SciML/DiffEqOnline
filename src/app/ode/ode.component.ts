@@ -23,6 +23,27 @@ export class OdeComponent implements OnInit {
   private tsStart = 0.0;
   private tsEnd = 10.0;
   private u0Text = "1.0, 1.0";
+  private solver = "Vern9";
+
+  private ODEsolvers = [
+    {name: 'Euler', desc:  'The canonical forward Euler method'},
+    {name: 'Midpoint' , desc:  'The second order midpoint method'},
+    {name: 'RK4' , desc:  'The canonical Runge-Kutta Order 4 method'},
+    {name: 'BS3' , desc:  'Bogacki-Shampine 3/2 method'},
+    {name: 'DP5' , desc:  "Dormand-Prince's 5/4 Runge-Kutta method"},
+    {name: 'Tsit5 ', desc:  'Tsitouras 5/4 Runge, desc: Kutta method'},
+    {name: 'BS5' , desc:  'Bogacki-Shampine 5/4 Runge-Kutta method'},
+    {name: 'Vern6' , desc:  "Verner's \"Most Efficient\" 6/5 Runge-Kutta method"},
+    {name: 'Vern7' , desc:  "Verner's \"Most Efficient\" 7/6 Runge-Kutta method"},
+    {name: 'TanYam7' , desc:  'Tanaka-Yamashita 7 Runge-Kutta method'},
+    {name: 'DP8' , desc:  "Hairer's 8/5/3 adaption of the Dormand-Prince 8 method Runge-Kutta method"},
+    {name: 'TsitPap8' , desc:  'Tsitouras-Papakostas 8/7 Runge-Kutta method'},
+    {name: 'Vern8' , desc:  "Verner's \"Most Efficient\" 8/7 Runge-Kutta method"},
+    {name: 'Vern9' , desc:  "Verner's \"Most Efficient\" 9/8 Runge-Kutta method"},
+    {name: 'Feagin10' , desc:  "Feagin's 10th-order Runge-Kutta method"},
+    {name: 'Feagin12' , desc:  "Feagin's 12th-order Runge-Kutta method"},
+    {name: 'Feagin14' , desc:  "Feagin's 14th-order Runge-Kutta method"}
+  ];
 
   private resultsObj: any;
   private model: any;
