@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from 'clarity-angular';
 import { AppComponent } from './app.component';
+import { OdeComponent } from './ode/ode.component';
 import { HomeComponent } from './home/home.component';
 
 const routing = RouterModule.forRoot([
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: 'ode', component: OdeComponent }
 
   // { path: 'radios', component: RadiosComponent }
 ]);
@@ -16,6 +18,7 @@ const routing = RouterModule.forRoot([
 @NgModule({
   declarations: [
     AppComponent,
+    OdeComponent,
     HomeComponent
   ],
   imports: [

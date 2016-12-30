@@ -1,35 +1,5 @@
-<form>
-  <section class="form-block">
-    <label>Input Fields</label>
-    <div class="form-group">
-      <label for="apiInput">API url</label>
-      <input id="apiInput" placeholder="http://localhost:7777/" type="url" [(ngModel)]="apiUrl" [ngModelOptions]="{standalone: true}">
-    </div>
-    <div class="form-group">
-      <label for="deqInput">Enter the system of differential equations here:</label>
-      <textarea id="deqInput" rows="5" placeholder="{{'dx = a*x - b*x*y\ndy = -c*y + d*x*y'}}" [(ngModel)]="diffEqText" [ngModelOptions]="{standalone: true}"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="parametersInput">Parameters:</label>
-      <input id="parametersInput" placeholder="a=>1.5, b=>1, c=3, d=1" type="text" [(ngModel)]="parametersText" [ngModelOptions]="{standalone: true}">
-    </div>
-    <div class="form-group">
-      <label for="tsStartInput">Time span:</label>
-      <span> ( </span>
-      <input id="tsStartInput" placeholder="0" type="number" [(ngModel)]="tsStart" [ngModelOptions]="{standalone: true}" size="10">
-      <span> , </span>
-      <input id="tsEndInput" placeholder="10" type="number" [(ngModel)]="tsEnd" [ngModelOptions]="{standalone: true}" size="10">
-      <span> ) </span>
-    </div>
-    <div class="form-group">
-      <label for="u0Input">Initial conditions:</label>
-      <input id="u0Input" placeholder="1.0, 1.0" type="text" [(ngModel)]="u0Text" [ngModelOptions]="{standalone: true}">
-    </div>
-  </section>
-  <button type="submit" class="btn btn-outline" (click)="solve()">Solve it</button>
-</form>
+<h1>Welcome</h1>
+<p>This page allows you to use <a href="https://github.com/JuliaDiffEq/DifferentialEquations.jl">DifferentialEquations.jl</a> in your browser.  To get started, click on one of the tools above.</p>
 
-<div id="results-plot"
-  name="results-plot"
-  style="">
-</div>
+<h2>How it works</h2>
+<p>Some longer description goes here...</p>
