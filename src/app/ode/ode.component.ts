@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { ApiService } from '../api.service';
+import { environment } from '../../environments/environment';
 
 declare var Plotly: any;
 
@@ -17,7 +18,8 @@ export class OdeComponent implements OnInit {
     private ApiService: ApiService
   ) { }
 
-  private apiUrl = "http://localhost:7777";
+  private apiUrl = environment.apiBaseURL;
+  private showAPIField = !environment.production;
   private diffEqText = 'dx = a*x - b*x*y\ndy = -c*y + d*x*y';
   private parametersText = "a=>1.5, b=>1, c=3, d=1";
   private tsStart = 0.0;

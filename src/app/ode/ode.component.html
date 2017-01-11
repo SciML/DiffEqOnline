@@ -1,7 +1,7 @@
 <form>
   <section class="form-block">
     <label>Input Fields</label>
-    <div class="form-group">
+    <div class="form-group" *ngIf="showAPIField">
       <label for="apiInput">API url</label>
       <input id="apiInput" placeholder="http://localhost:7777/" type="url" [(ngModel)]="apiUrl" [ngModelOptions]="{standalone: true}">
     </div>
