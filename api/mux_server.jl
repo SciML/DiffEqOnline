@@ -27,10 +27,8 @@ function withHeaders(res, req)
 end
 
 # A debug endpoint
-function squareit(req)
-    strArr = String(base64decode(convert(String, req[:path][1])))
-    arr = JSON.parse(strArr)
-    return  JSON.json(Dict("data" => arr.^2, "error" => false))
+function wakeup()
+    return JSON.json(Dict("data" => Dict("awake" => true), "error" => false))
 end
 
 # The ODE endpoint
@@ -106,10 +104,9 @@ end
 
 @app test = (
     Mux.defaults,
-    page(respond("Nothing to see here...")),
-    route("/squareit", req -> withHeaders(squareit(req), req)),
+    page(req -> withHeaders("Nothing to see here...", req)),
+    route("/wakeup", req -> withHeaders(wakeup(), req)),
     route("/solveit", req -> withHeaders(solveit(req), req)),
-    route("/test", req -> withHeaders("Meh", req)),
     Mux.notfound()
 )
 

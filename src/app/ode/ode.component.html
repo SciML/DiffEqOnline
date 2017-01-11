@@ -36,8 +36,17 @@
       </div>
     </div>
   </section>
-  <button type="submit" class="btn btn-outline" (click)="solve()">Solve it</button>
+  <button type="submit" class="btn btn-outline" (click)="solve()" [disabled]="!serverAwake">Solve it</button>
 </form>
+<clr-alert [clrAlertSizeSmall]="true" [clrAlertClosed]="serverAwake">
+    <div class="alert-item">
+        <span class="alert-text">
+            Waking up the back-end solver...
+        </span>
+    </div>
+</clr-alert>
+
+<div class="progress loop" *ngIf="waitingOnServer"><progress></progress></div>
 
 <div id="results-plot"
   name="results-plot"

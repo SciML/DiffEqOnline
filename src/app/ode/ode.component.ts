@@ -20,6 +20,10 @@ export class OdeComponent implements OnInit {
 
   private apiUrl = environment.apiBaseURL;
   private showAPIField = !environment.production;
+  private serverAwake = false;
+  private waitingOnServer = false;
+
+  // Initial values
   private diffEqText = 'dx = a*x - b*x*y\ndy = -c*y + d*x*y';
   private parametersText = "a=>1.5, b=>1, c=3, d=1";
   private tsStart = 0.0;
@@ -51,6 +55,7 @@ export class OdeComponent implements OnInit {
   private model: any;
 
   ngOnInit() {
+    this.wakeUp();
   }
 
   solve() {
@@ -63,6 +68,7 @@ export class OdeComponent implements OnInit {
       solver: this.solver
     });
     console.log(this.model);
+    this.waitingOnServer = true;
     this.sendDiffEq();
   }
 
@@ -74,15 +80,16 @@ export class OdeComponent implements OnInit {
     );
   }
 
-  // sendSquare() {
-  //   return this.ApiServiceService.passSquare(this.apiUrl, this.inputText).subscribe(
-  //     data => this.resultsObj = data,
-  //     error => console.log(error),
-  //     () => this.plot()
-  //   );
-  // }
-  //
+  wakeUp() {
+    return this.ApiService.wakeUp(this.apiUrl).subscribe(
+      data => this.serverAwake = data.awake,
+      error => console.log(error)
+    );
+  }
+
+
   plot() {
+    this.waitingOnServer = false;
     console.log(this.resultsObj);
     var self = this;
     var series = JSON.parse(this.resultsObj.series);

@@ -11,14 +11,13 @@ private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }
 
-  passSquare(apiUrl:string, arrStr:string) {
-    // Encode the array string as a base64 string to make sure we don't have any crazy characters
-    return this.http.get(apiUrl + '/squareit/' + btoa(arrStr)).map(res => res.json().data);
-  }
-
   passDiffEq(apiUrl:string, model:any) {
     // Encode the array string as a base64 string to make sure we don't have any crazy characters
     return this.http.get(apiUrl + '/solveit/' + btoa(JSON.stringify(model))).map(res => res.json().data);
+  }
+
+  wakeUp(apiUrl:string) {
+    return this.http.get(apiUrl + '/wakeup').map(res => res.json().data);
   }
 
 
