@@ -48,7 +48,8 @@ export class OdeComponent implements OnInit {
     // {name: 'Vern9' , desc:  "Verner's \"Most Efficient\" 9/8 Runge-Kutta method"},
     // {name: 'Feagin10' , desc:  "Feagin's 10th-order Runge-Kutta method"},
     // {name: 'Feagin12' , desc:  "Feagin's 12th-order Runge-Kutta method"},
-    {name: 'Feagin14' , desc:  "Feagin's 14th-order Runge-Kutta method"}
+    {name: 'Feagin14' , desc:  "Feagin's 14th-order Runge-Kutta method"},
+    {name: 'Rosenbrock23' , desc:  "Rosenbrock's method"}
   ];
 
   private resultsObj: any;
