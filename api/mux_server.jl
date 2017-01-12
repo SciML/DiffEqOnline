@@ -1,4 +1,6 @@
+tic()
 using DiffEqBase, OrdinaryDiffEq, ParameterizedFunctions, Plots, Mux, JSON, HttpCommon
+println("Package loading took this long: ", toq())
 
 # Handy functions
 expr_has_head(s, h) = false
@@ -38,6 +40,7 @@ function solveit(req::Dict{Any,Any})
 end
 
 function solveit(b64::String)
+    tic()
     plotly()
     strObj = String(base64decode(b64))
     obj = JSON.parse(strObj)
@@ -91,14 +94,13 @@ function solveit(b64::String)
     layout = Plots.plotly_layout_json(p)
     series = Plots.plotly_series_json(p)
 
-    println("Pretty much done at this point")
-
     # Destroy some methods and objects
     ex = 0
     name = 0
     params = 0
 
     res = Dict("u" => newu, "t" => newt, "layout" =>layout, "series"=>series)
+    println("Done, took this long: ", toq())
     return JSON.json(Dict("data" => res, "error" => false))
 end
 
