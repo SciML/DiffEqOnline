@@ -37,7 +37,7 @@ export class OdeComponent implements OnInit {
     // {name: 'RK4' , desc:  'The canonical Runge-Kutta Order 4 method'},
     {name: 'BS3' , desc:  'Bogacki-Shampine 3/2 method'},
     // {name: 'DP5' , desc:  "Dormand-Prince's 5/4 Runge-Kutta method"},
-    {name: 'Tsit5 ', desc:  'Tsitouras 5/4 Runge, desc: Kutta method'},
+    {name: 'Tsit5 ', desc:  'Tsitouras 5/4 Runge-Kutta method'},
     // {name: 'BS5' , desc:  'Bogacki-Shampine 5/4 Runge-Kutta method'},
     {name: 'Vern6' , desc:  "Verner's \"Most Efficient\" 6/5 Runge-Kutta method"},
     {name: 'Vern7' , desc:  "Verner's \"Most Efficient\" 7/6 Runge-Kutta method"},
