@@ -38,10 +38,23 @@
   </section>
   <button type="submit" class="btn btn-outline" (click)="solve()" [disabled]="!serverAwake">Solve it</button>
 </form>
+
+<!-- Waking up message -->
+
 <clr-alert [clrAlertSizeSmall]="true" [clrAlertClosed]="serverAwake">
     <div class="alert-item">
         <span class="alert-text">
             Waking up the back-end solver...
+        </span>
+    </div>
+</clr-alert>
+
+<!-- Server returned an error message  -->
+
+<clr-alert [clrAlertType]="'alert-danger'" *ngIf="serverError!=''" (clrAlertClosedChange)="serverErrorClose()">
+    <div class="alert-item">
+        <span class="alert-text">
+            {{serverError}}
         </span>
     </div>
 </clr-alert>

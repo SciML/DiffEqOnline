@@ -22,6 +22,7 @@ export class OdeComponent implements OnInit {
   private showAPIField = !environment.production;
   private serverAwake = false;
   private waitingOnServer = false;
+  private serverError = '';
 
   // Initial values
   private diffEqText = 'dx = a*x - b*x*y\ndy = -c*y + d*x*y';
@@ -76,7 +77,7 @@ export class OdeComponent implements OnInit {
   sendDiffEq() {
     return this.ApiService.passDiffEq(this.apiUrl, this.model).subscribe(
       data => this.resultsObj = data,
-      error => console.log(error),
+      error => this.handleServerError(error),
       () => this.plot()
     );
   }
@@ -84,21 +85,30 @@ export class OdeComponent implements OnInit {
   wakeUp() {
     return this.ApiService.wakeUp(this.apiUrl).subscribe(
       data => this.serverAwake = data.awake,
-      error => console.log(error)
+      error => this.serverError = error
     );
   }
 
 
   plot() {
-    this.waitingOnServer = false;
-    console.log(this.resultsObj);
     var self = this;
+    self.waitingOnServer = false;
+    console.log(self.resultsObj);
     var series = JSON.parse(this.resultsObj.series);
     var layout = JSON.parse(this.resultsObj.layout);
     layout.margin.b = 20;
     layout.margin.l = 20;
     console.log(layout);
     Plotly.newPlot('results-plot',series,layout);
+  }
+
+  serverErrorClose() {
+    this.serverError='';
+  }
+
+  handleServerError(error) {
+    this.waitingOnServer = false;
+    this.serverError = error;
   }
 
 }
