@@ -30,7 +30,7 @@ export class OdeComponent implements OnInit {
   // Initial values
   private settings = {
     diffEqText: 'dx = a*x - b*x*y\ndy = -c*y + d*x*y',
-    parameters: "a=>1.5, b=>1, c=3, d=1",
+    parameters: "a=1.5, b=1, c=3, d=1",
     timeSpan: [0.0, 10.0],
     initialConditions: "1.0, 1.0",
     solver: "Tsit5",
