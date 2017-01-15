@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { ApiService } from '../api.service';
 import { environment } from '../../environments/environment';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 declare var Plotly: any;
 
@@ -15,7 +16,9 @@ export class OdeComponent implements OnInit {
 
   constructor(
     private http: Http,
-    private ApiService: ApiService
+    private ApiService: ApiService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   private apiUrl = environment.apiBaseURL;
@@ -25,13 +28,16 @@ export class OdeComponent implements OnInit {
   private serverError = '';
 
   // Initial values
-  private diffEqText = 'dx = a*x - b*x*y\ndy = -c*y + d*x*y';
-  private parametersText = "a=>1.5, b=>1, c=3, d=1";
-  private tsStart = 0.0;
-  private tsEnd = 10.0;
-  private u0Text = "1.0, 1.0";
-  private solver = "Tsit5";
-  private vars = "[:x, :y]";
+  private settings = {
+    diffEqText: 'dx = a*x - b*x*y\ndy = -c*y + d*x*y',
+    parameters: "a=>1.5, b=>1, c=3, d=1",
+    timeSpan: [0.0, 10.0],
+    initialConditions: "1.0, 1.0",
+    solver: "Tsit5",
+    vars: "[:x, :y]"
+  };
+
+  private model: any;
 
   private ODEsolvers = [
     // {name: 'Euler', desc:  'The canonical forward Euler method'},
@@ -55,21 +61,30 @@ export class OdeComponent implements OnInit {
   ];
 
   private resultsObj: any;
-  private model: any;
 
   ngOnInit() {
     this.wakeUp();
+    // var payload = this.route.snapshot.params['config'];
+    // if (payload) {
+    //   console.log('Payload is: ' + payload);
+    //   try {
+    //     this.config = JSON.parse(btoa(payload));
+    //
+    //   }
+    // }
+
+
   }
 
   solve() {
-    // Step 1: construct an object that contains everything we need to pass to the back-end.  We don't bind the front-end directly to this model so we can do some moderately-complex validation.
+    // Build a model to pass to the back end -- this is mostly the same as the settings object but with some tweaks to make it better understandable to the api
     this.model = Object.assign({}, {
-      diffEqText: this.diffEqText,
-      timeSpan: [this.tsStart, this.tsEnd],
-      parameters: this.parametersText.replace(/\s/g, '').split(','),
-      initialConditions: this.u0Text.replace(/\s/g, '').split(','),
-      vars: this.vars,
-      solver: this.solver
+      diffEqText: this.settings.diffEqText,
+      timeSpan: this.settings.timeSpan,
+      parameters: this.settings.parameters.replace(/\s/g, '').split(','),
+      initialConditions: this.settings.initialConditions.replace(/\s/g, '').split(','),
+      vars: this.settings.vars,
+      solver: this.settings.solver
     });
     console.log(this.model);
     this.waitingOnServer = true;

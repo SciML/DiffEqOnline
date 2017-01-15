@@ -1,38 +1,38 @@
-<form>
+<form (ngSubmit)="solve()">
   <section class="form-block">
     <label>Input Fields</label>
     <div class="form-group" *ngIf="showAPIField">
       <label for="apiInput">API url</label>
-      <input id="apiInput" placeholder="http://localhost:7777/" type="url" [(ngModel)]="apiUrl" [ngModelOptions]="{standalone: true}">
+      <input id="apiInput" placeholder="http://localhost:7777/" type="url" [(ngModel)]="apiUrl" name="apiInput"  [ngModelOptions]="{standalone: true}">
     </div>
     <div class="form-group">
       <label for="deqInput">Enter the system of differential equations here:</label>
-      <textarea id="deqInput" rows="5" placeholder="{{'dx = a*x - b*x*y\ndy = -c*y + d*x*y'}}" [(ngModel)]="diffEqText" [ngModelOptions]="{standalone: true}"></textarea>
+      <textarea id="deqInput" rows="5" placeholder="{{'dx = a*x - b*x*y\ndy = -c*y + d*x*y'}}" [(ngModel)]="settings.diffEqText" name="deqInput"></textarea>
     </div>
     <div class="form-group">
       <label for="parametersInput">Parameters:</label>
-      <input id="parametersInput" placeholder="a=>1.5, b=>1, c=3, d=1" type="text" [(ngModel)]="parametersText" [ngModelOptions]="{standalone: true}">
+      <input id="parametersInput" placeholder="a=>1.5, b=>1, c=3, d=1" type="text" [(ngModel)]="settings.parameters" name=parametersInput>
     </div>
     <div class="form-group">
       <label for="tsStartInput">Time span:</label>
       <span> ( </span>
-      <input id="tsStartInput" placeholder="0" type="number" [(ngModel)]="tsStart" [ngModelOptions]="{standalone: true}" size="10">
+      <input id="tsStartInput" placeholder="0" type="number" [(ngModel)]="settings.timeSpan[0]" size="10" name="tsStartInput">
       <span> , </span>
-      <input id="tsEndInput" placeholder="10" type="number" [(ngModel)]="tsEnd" [ngModelOptions]="{standalone: true}" size="10">
+      <input id="tsEndInput" placeholder="10" type="number" [(ngModel)]="settings.timeSpan[1]" size="10" name="tsEndInput">
       <span> ) </span>
     </div>
     <div class="form-group">
       <label for="u0Input">Initial conditions:</label>
-      <input id="u0Input" placeholder="1.0, 1.0" type="text" [(ngModel)]="u0Text" [ngModelOptions]="{standalone: true}">
+      <input id="u0Input" placeholder="1.0, 1.0" type="text" [(ngModel)]="settings.initialConditions" name="u0Input">
     </div>
     <div class="form-group">
-      <label for="u0Input">Plotting variables:<a href="http://docs.juliadiffeq.org/latest/basics/plot.html#Choosing-Variables-1"><sup>1</sup></a></label>
-      <input id="vars" placeholder="[:x, :y]" type="text" [(ngModel)]="vars" [ngModelOptions]="{standalone: true}">
+      <label for="varsInput">Plotting variables:<a href="http://docs.juliadiffeq.org/latest/basics/plot.html#Choosing-Variables-1"><sup>1</sup></a></label>
+      <input id="varsInput" placeholder="[:x, :y]" type="text" [(ngModel)]="settings.vars" name="varsInput">
     </div>
     <div class="form-group">
       <label for="solverInput">Solver:</label>
       <div class="select">
-        <select id="solverInput" [(ngModel)]="solver" [ngModelOptions]="{standalone: true}">
+        <select id="solverInput" [(ngModel)]="settings.solver" name="solverInput">
           <option *ngFor="let o of ODEsolvers" [ngValue]="o.name">
             {{o.name + ': ' + o.desc}}
           </option>
@@ -40,7 +40,7 @@
       </div>
     </div>
   </section>
-  <button type="submit" class="btn btn-outline" (click)="solve()" [disabled]="!serverAwake">Solve it</button>
+  <button type="submit" class="btn btn-outline" [disabled]="!serverAwake">Solve it</button>
 </form>
 
 <!-- Waking up message -->
