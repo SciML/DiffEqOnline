@@ -31,6 +31,7 @@ export class OdeComponent implements OnInit {
   private tsEnd = 10.0;
   private u0Text = "1.0, 1.0";
   private solver = "Tsit5";
+  private vars = "[:x, :y]";
 
   private ODEsolvers = [
     // {name: 'Euler', desc:  'The canonical forward Euler method'},
@@ -67,6 +68,7 @@ export class OdeComponent implements OnInit {
       timeSpan: [this.tsStart, this.tsEnd],
       parameters: this.parametersText.replace(/\s/g, '').split(','),
       initialConditions: this.u0Text.replace(/\s/g, '').split(','),
+      vars: this.vars,
       solver: this.solver
     });
     console.log(this.model);

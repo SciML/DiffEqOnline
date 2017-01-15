@@ -26,6 +26,10 @@
       <input id="u0Input" placeholder="1.0, 1.0" type="text" [(ngModel)]="u0Text" [ngModelOptions]="{standalone: true}">
     </div>
     <div class="form-group">
+      <label for="u0Input">Plotting variables:<a href="http://docs.juliadiffeq.org/latest/basics/plot.html#Choosing-Variables-1"><sup>1</sup></a></label>
+      <input id="vars" placeholder="[:x, :y]" type="text" [(ngModel)]="vars" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
       <label for="solverInput">Solver:</label>
       <div class="select">
         <select id="solverInput" [(ngModel)]="solver" [ngModelOptions]="{standalone: true}">
