@@ -26,7 +26,7 @@ export class OdeComponent implements OnInit {
 
   // Initial values
   private diffEqText = 'dx = a*x - b*x*y\ndy = -c*y + d*x*y';
-  private parametersText = "a=>1.5, b=>1, c=3, d=1";
+  private parametersText = "a=1.5, b=1, c=3, d=1";
   private tsStart = 0.0;
   private tsEnd = 10.0;
   private u0Text = "1.0, 1.0";
