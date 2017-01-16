@@ -30,12 +30,12 @@ export class SdeComponent implements OnInit {
   // Initial values
   private settings = {
     diffEqText: 'dx = a*x - b*x*y\ndy = -c*y + d*x*y',
-    noiseText: 'dx = 1\ndy = y',
+    noiseText: 'dx = a*x\ndy = a*y',
     parameters: "a=1.5, b=1, c=3, d=1",
-    noiseParameters: "a=2.5",
+    noiseParameters: "a=0.25",
     timeSpan: [0.0, 10.0],
     initialConditions: "1.0, 1.0",
-    solver: "Tsit5",
+    solver: "SRIW1",
     vars: "[:x, :y]"
   };
 

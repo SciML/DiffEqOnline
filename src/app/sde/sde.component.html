@@ -15,11 +15,11 @@
     </div>
     <div class="form-group">
       <label for="noiseInput">Input the noise function here:</label>
-      <textarea id="noiseInput" rows="5" placeholder="{{'dx = a\ndy = y'}}" [(ngModel)]="settings.noiseText" name="noiseInput"></textarea>
+      <textarea id="noiseInput" rows="5" placeholder="{{'dx = a*x\ndy = a*y'}}" [(ngModel)]="settings.noiseText" name="noiseInput"></textarea>
     </div>
     <div class="form-group">
       <label for="noiseParametersInput">Noise parameters:</label>
-      <input id="noiseParametersInput" placeholder="a=2.5" type="text" [(ngModel)]="settings.noiseParameters" name=noiseParametersInput size="50">
+      <input id="noiseParametersInput" placeholder="a=0.25" type="text" [(ngModel)]="settings.noiseParameters" name=noiseParametersInput size="50">
     </div>
     <div class="form-group">
       <label for="tsStartInput">Time span:</label>
