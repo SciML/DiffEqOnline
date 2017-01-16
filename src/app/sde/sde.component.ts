@@ -50,16 +50,24 @@ export class SdeComponent implements OnInit {
 
   ngOnInit() {
     this.wakeUp();
-    // var payload = this.route.snapshot.params['config'];
-    // if (payload) {
-    //   console.log('Payload is: ' + payload);
-    //   try {
-    //     this.config = JSON.parse(btoa(payload));
-    //
-    //   }
-    // }
+    var payload = this.route.snapshot.params['settings'];
+    if (payload) {
+      console.log('Payload is: ' + payload);
+      try {
+        this.settings = JSON.parse(atob(payload));
+        this.solve();
+      } catch(e) {
+        console.log('Invalid settings in url, using default ones.  Error: ' + e);
+      }
+    }
+    this.updateSettingsInURL();
+  }
 
-
+  // Take the current settings and bake them into the URL
+  updateSettingsInURL() {
+    return this.router.navigate(['/sde/', {
+      settings: btoa(JSON.stringify(this.settings))
+    }]);
   }
 
   solve() {

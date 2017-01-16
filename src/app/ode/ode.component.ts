@@ -33,7 +33,7 @@ export class OdeComponent implements OnInit {
     parameters: "a=1.5, b=1, c=3, d=1",
     timeSpan: [0.0, 10.0],
     initialConditions: "1.0, 1.0",
-    solver: "Tsit5",
+    solver: 'Tsit5',
     vars: "[:x, :y]"
   };
 
@@ -64,19 +64,28 @@ export class OdeComponent implements OnInit {
 
   ngOnInit() {
     this.wakeUp();
-    // var payload = this.route.snapshot.params['config'];
-    // if (payload) {
-    //   console.log('Payload is: ' + payload);
-    //   try {
-    //     this.config = JSON.parse(btoa(payload));
-    //
-    //   }
-    // }
+    var payload = this.route.snapshot.params['settings'];
+    if (payload) {
+      console.log('Payload is: ' + payload);
+      try {
+        this.settings = JSON.parse(atob(payload));
+        this.solve();
+      } catch(e) {
+        console.log('Invalid settings in url, using default ones.  Error: ' + e);
+      }
+    }
+    this.updateSettingsInURL();
+  }
 
-
+  // Take the current settings and bake them into the URL
+  updateSettingsInURL() {
+    return this.router.navigate(['/ode/', {
+      settings: btoa(JSON.stringify(this.settings))
+    }]);
   }
 
   solve() {
+    this.updateSettingsInURL();
     // Build a model to pass to the back end -- this is mostly the same as the settings object but with some tweaks to make it better understandable to the api
     this.model = Object.assign({}, {
       diffEqText: this.settings.diffEqText,
