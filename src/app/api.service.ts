@@ -31,14 +31,22 @@ export class ApiService {
   let errMsg: string;
   var err = '';
   if (error instanceof Response) {
+    // Normally errors come in as response objects
     const body = error.json() || '';
     err = body.message || JSON.stringify(body);
     errMsg = `${error.status} - ${error.statusText || ''}: ${err}`;
+    console.error(errMsg);
+    // Check for timeout errors.  The 0 status is what appears since the Access-Control-Allow-Origin headers are not set by Heroku when it times out.  
+    if ((error.status==503)||(error.status==0)) {
+      err = 'The server timed out trying to calculate your response.  Try reloading, and if that doesn\'t work try DifferentialEquations.jl!';
+    }
+    return Observable.throw(err);
   } else {
+    // A generic error fallback
     errMsg = error.message ? error.message : error.toString();
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
-  console.error(errMsg);
-  return Observable.throw(err);
 }
 
 
