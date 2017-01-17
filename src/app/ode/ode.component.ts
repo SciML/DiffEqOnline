@@ -34,7 +34,8 @@ export class OdeComponent implements OnInit {
     timeSpan: [0.0, 10.0],
     initialConditions: "1.0, 1.0",
     solver: 'Tsit5',
-    vars: "[:x, :y]"
+    vars: "[:x, :y]",
+    title: 'My ODE'
   };
 
   private model: any;
@@ -80,7 +81,8 @@ export class OdeComponent implements OnInit {
       parameters: this.settings.parameters.replace(/\s/g, '').split(','),
       initialConditions: this.settings.initialConditions.replace(/\s/g, '').split(','),
       vars: this.settings.vars,
-      solver: this.settings.solver
+      solver: this.settings.solver,
+      title: this.settings.title
     });
     console.log(this.model);
     this.waitingOnServer = true;

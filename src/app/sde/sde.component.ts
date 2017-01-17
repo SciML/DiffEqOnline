@@ -36,7 +36,8 @@ export class SdeComponent implements OnInit {
     timeSpan: [0.0, 10.0],
     initialConditions: "1.0, 1.0",
     solver: "SRIW1",
-    vars: "[:x, :y]"
+    vars: "[:x, :y]",
+    title: 'My SDE'
   };
 
   private model: any;
@@ -80,7 +81,8 @@ export class SdeComponent implements OnInit {
       noiseParameters: this.settings.noiseParameters.replace(/\s/g, '').split(','),
       initialConditions: this.settings.initialConditions.replace(/\s/g, '').split(','),
       vars: this.settings.vars,
-      solver: this.settings.solver
+      solver: this.settings.solver,
+      title: this.settings.title
     });
     console.log(this.model);
     this.waitingOnServer = true;

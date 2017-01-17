@@ -39,6 +39,10 @@
         </select>
       </div>
     </div>
+    <div class="form-group">
+      <label for="titleInput">Graph title:</label>
+      <input id="titleInput" placeholder="My ODE" type="text" [(ngModel)]="settings.title" name="titleInput" size="50">
+    </div>
   </section>
   <button type="submit" class="btn btn-outline" [disabled]="!serverAwake">Solve it</button>
 </form>
