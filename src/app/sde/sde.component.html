@@ -14,7 +14,7 @@
       <input id="parametersInput" placeholder="a=1.5, b=1, c=3, d=1" type="text" [(ngModel)]="settings.parameters" name=parametersInput size="50">
     </div>
     <div class="form-group">
-      <label for="noiseInput">Input the noise function here:</label>
+      <label for="noiseInput">Input the noise function here:<a href="http://docs.juliadiffeq.org/latest/types/sde_types.html#Mathematical-Specification-of-a-SDE-Problem-1"><sup>1</sup></a></label>
       <textarea id="noiseInput" rows="5" placeholder="{{'dx = a*x\ndy = a*y'}}" [(ngModel)]="settings.noiseText" name="noiseInput"></textarea>
     </div>
     <div class="form-group">
@@ -34,7 +34,7 @@
       <input id="u0Input" placeholder="1.0, 1.0" type="text" [(ngModel)]="settings.initialConditions" name="u0Input">
     </div>
     <div class="form-group">
-      <label for="varsInput">Plotting variables:<a href="http://docs.juliadiffeq.org/latest/basics/plot.html#Choosing-Variables-1"><sup>1</sup></a></label>
+      <label for="varsInput">Plotting variables:<a href="http://docs.juliadiffeq.org/latest/basics/plot.html#Choosing-Variables-1"><sup>2</sup></a></label>
       <input id="varsInput" placeholder="[:x, :y]" type="text" [(ngModel)]="settings.vars" name="varsInput">
     </div>
     <div class="form-group">
