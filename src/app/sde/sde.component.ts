@@ -37,7 +37,7 @@ export class SdeComponent implements OnInit {
     initialConditions: "1.0, 1.0",
     solver: "SRIW1",
     vars: "[:x, :y]",
-    title: 'My SDE'
+    title: 'Stochastic Lotka-Volterra Equation'
   };
 
   private model: any;
@@ -111,8 +111,10 @@ export class SdeComponent implements OnInit {
     console.log(self.resultsObj);
     var series = JSON.parse(this.resultsObj.series);
     var layout = JSON.parse(this.resultsObj.layout);
+    layout.title = this.resultsObj.title;
     layout.margin.b = 20;
     layout.margin.l = 20;
+    layout.margin.t = 50;
     console.log(layout);
     Plotly.newPlot('results-plot',series,layout);
   }
