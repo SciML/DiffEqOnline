@@ -42,7 +42,7 @@ export class OdeComponent implements OnInit {
 
   private ODEsolvers = [
     {name: 'BS3' , desc:  'Bogacki-Shampine 3/2 method'},
-    {name: 'Tsit5 ', desc:  'Tsitouras 5/4 Runge-Kutta method'},
+    {name: 'Tsit5', desc:  'Tsitouras 5/4 Runge-Kutta method'},
     {name: 'Vern6' , desc:  "Verner's \"Most Efficient\" 6/5 Runge-Kutta method"},
     {name: 'Vern7' , desc:  "Verner's \"Most Efficient\" 7/6 Runge-Kutta method"},
     {name: 'Rosenbrock23' , desc:  "Rosenbrock's method"}
