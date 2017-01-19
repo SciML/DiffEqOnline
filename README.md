@@ -32,7 +32,7 @@ Run `ng serve` for a dev server.
 Navigate a browser to `http://localhost:4200/`.
 The app will automatically reload if you change any of the source files.
 
-The development build of the website allows you to select the url of the API, so you can test it with a local instance of the API.  
+The development build of the website allows you to select the url of the API, so you can test it with a local instance of the API. To setup the backend API and run it locally, see [the repository for the backend](https://github.com/JuliaDiffEq/DiffEqOnlineServer).  
 
 # Development notes for the angular-cli front end
 
