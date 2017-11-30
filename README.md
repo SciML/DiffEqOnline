@@ -10,12 +10,6 @@ First, make sure you have node installed. You can download it [here](https://nod
 sudo yum install nodejs
 ```
 
-Next, install AngularJS via
-
-```
-sudo npm install angular
-```
-
 and install angular-cli using the instructions [here](https://github.com/angular/angular-cli).
 
 Clone the repo and navigate to it. Then run
